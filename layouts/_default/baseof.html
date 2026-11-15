@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  {{ partial "meta.html" . }}
+  {{ with resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{ end }}
+  {{ with .OutputFormats.Get "rss" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
+  {{ end }}
+</head>
+<body class="{{ block "bodyclass" . }}page{{ end }}">
+  {{ if ne .Type "shorts" }}
+  <header class="site-header">
+    <a class="brand" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+    <nav>
+      <a href="{{ "/" | relURL }}">Latest</a>
+      <a href="{{ "/tags/" | relURL }}">Tags</a>
+    </nav>
+  </header>
+  {{ end }}
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

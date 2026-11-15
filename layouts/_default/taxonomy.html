@@ -1,0 +1,12 @@
+{{ define "main" }}
+<section class="intro">
+  <h1>Tags</h1>
+</section>
+<ul class="tag-cloud">
+  {{ range .Data.Terms.ByCount }}
+  <li><a class="chip chip-lg" href="{{ .Page.RelPermalink }}">#{{ .Page.LinkTitle }} <span class="count">{{ .Count }}</span></a></li>
+  {{ else }}
+  <li class="empty">No tags yet.</li>
+  {{ end }}
+</ul>
+{{ end }}

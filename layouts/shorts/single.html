@@ -1,0 +1,61 @@
+{{ define "bodyclass" }}feed-page{{ end }}
+
+{{ define "main" }}
+{{ $id := .Params.youtube_id }}
+{{ $current := dict
+    "id" $id
+    "title" .Title
+    "channel" (.Params.channel | default "")
+    "channel_url" (.Params.channel_url | default "")
+    "tags" (.Params.tags | default slice)
+    "note" (.Params.note | default "")
+    "date" (.Date.Format "2006-01-02")
+    "url" .RelPermalink
+}}
+<script type="application/json" id="current-short">{{ $current | jsonify | safeJS }}</script>
+
+<div class="controls" role="toolbar" aria-label="Feed controls">
+  <a class="btn" href="{{ "/" | relURL }}" data-grid-link aria-label="Back to grid">← Grid</a>
+  <span class="feed-label" data-feed-label></span>
+  <span class="spacer"></span>
+  <button class="btn" type="button" data-shuffle aria-pressed="false" title="Shuffle (s)">⇄ Newest</button>
+  <button class="btn" type="button" data-sound aria-pressed="false" title="Sound (m)">🔇</button>
+</div>
+
+<div class="nav-arrows" aria-hidden="false">
+  <button class="btn round" type="button" data-prev aria-label="Previous short (↑)">↑</button>
+  <button class="btn round" type="button" data-next aria-label="Next short (↓)">↓</button>
+</div>
+
+<div id="feed" class="feed"
+     data-start="{{ $id }}"
+     data-index="{{ "index.json" | relURL }}"
+     data-site-title="{{ site.Title }}"
+     data-tags-base="{{ "/tags/" | relURL }}">
+  {{/* Server-rendered first slide: visible before JS runs and for no-JS visitors. */}}
+  <section class="slide is-active">
+    <div class="frame">
+      <img class="poster" src="https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg" alt="">
+      <noscript>
+        <iframe src="https://www.youtube-nocookie.com/embed/{{ $id }}?playsinline=1&rel=0"
+                title="{{ .Title }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowfullscreen></iframe>
+      </noscript>
+    </div>
+    <div class="info">
+      <h1 class="title">{{ .Title }}</h1>
+      {{ with .Params.channel }}<div class="channel">{{ . }}</div>{{ end }}
+      {{ with .Params.note }}<p class="note">{{ . }}</p>{{ end }}
+      {{ with .GetTerms "tags" }}
+      <div class="chips">{{ range . }}<a class="chip" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}</div>
+      {{ end }}
+    </div>
+  </section>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ with resources.Get "js/feed.js" | js.Build (dict "minify" true "target" "es2018") | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{ end }}
+{{ end }}

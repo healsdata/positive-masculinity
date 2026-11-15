@@ -1,0 +1,8 @@
+{{ define "main" }}
+{{ $shorts := (where site.RegularPages "Type" "shorts").ByDate.Reverse }}
+<section class="intro">
+  <p>{{ site.Params.description }}</p>
+  <p class="muted">{{ len $shorts }} shorts · newest first · tap one to start swiping</p>
+</section>
+{{ partial "grid.html" (dict "pages" $shorts) }}
+{{ end }}

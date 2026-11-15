@@ -1,0 +1,17 @@
+baseURL = "http://localhost:1313/"   # set to the DigitalOcean app URL / custom domain once known
+languageCode = "en-us"
+title = "Positive Masculinity"
+enableRobotsTXT = true
+disablePathToLower = true            # YouTube IDs are case-sensitive; keep /shorts/<id>/ exact
+disableKinds = ["section"]           # /shorts/ list isn't needed; the home page is the grid
+capitalizeListTitles = false         # show tags as #fatherhood, not #Fatherhood
+
+[params]
+  description = "A hand-picked collection of YouTube Shorts on positive masculinity."
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "JSON", "RSS"]
+

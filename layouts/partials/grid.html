@@ -1,0 +1,28 @@
+{{- /* context: dict "pages" <Pages> "tag" <string, optional> */ -}}
+{{- $tag := .tag -}}
+{{- with .pages }}
+<ul class="grid">
+  {{- range . }}
+  {{- $id := .Params.youtube_id }}
+  {{- $href := .RelPermalink }}
+  {{- with $tag }}{{ $href = printf "%s?tag=%s" $href (urlquery .) }}{{ end }}
+  <li class="card">
+    <a class="thumb" href="{{ $href }}" aria-label="Watch: {{ .Title }}">
+      <img src="https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+      <span class="play" aria-hidden="true">▶</span>
+    </a>
+    <div class="card-body">
+      <a class="card-title" href="{{ $href }}">{{ .Title }}</a>
+      {{- with .Params.channel }}<div class="card-channel">{{ . }}</div>{{ end }}
+      {{- with .GetTerms "tags" }}
+      <div class="chips">
+        {{- range . }}<a class="chip" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}
+      </div>
+      {{- end }}
+    </div>
+  </li>
+  {{- end }}
+</ul>
+{{- else }}
+<p class="empty">No shorts yet. Add one with <code>/add-short &lt;url&gt;</code>.</p>
+{{- end }}

@@ -1,0 +1,7 @@
+{{ define "main" }}
+<section class="intro">
+  <h1>#{{ .Title }}</h1>
+  <p class="muted">{{ len .Pages }} shorts · <a href="{{ "/tags/" | relURL }}">all tags</a></p>
+</section>
+{{ partial "grid.html" (dict "pages" .Pages.ByDate.Reverse "tag" .Data.Term) }}
+{{ end }}

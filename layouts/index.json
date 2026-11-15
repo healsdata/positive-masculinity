@@ -1,0 +1,14 @@
+{{- $items := slice -}}
+{{- range (where site.RegularPages "Type" "shorts").ByDate.Reverse -}}
+  {{- $items = $items | append (dict
+      "id" .Params.youtube_id
+      "title" .Title
+      "channel" (.Params.channel | default "")
+      "channel_url" (.Params.channel_url | default "")
+      "tags" (.Params.tags | default slice)
+      "note" (.Params.note | default "")
+      "date" (.Date.Format "2006-01-02")
+      "url" .RelPermalink
+  ) -}}
+{{- end -}}
+{{- $items | jsonify -}}
