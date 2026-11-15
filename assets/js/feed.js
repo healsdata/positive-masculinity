@@ -19,6 +19,8 @@
   const soundBtn = $('[data-sound]');
   const feedLabel = $('[data-feed-label]');
   const gridLink = $('[data-grid-link]');
+  const prevBtn = $('[data-prev]');
+  const nextBtn = $('[data-next]');
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
@@ -168,6 +170,8 @@
     active = i;
     const item = order[i];
     slides[i].classList.add('is-active');
+    prevBtn.disabled = i <= 0;
+    nextBtn.disabled = i >= slides.length - 1;
 
     const qs = TAG ? `?tag=${encodeURIComponent(TAG)}` : '';
     try { history.replaceState(null, '', item.url + qs); } catch { /* file:// etc. */ }
@@ -263,8 +267,8 @@
     render(order[active] ? order[active].id : START_ID);
   });
   soundBtn.addEventListener('click', () => setSound(!soundOn));
-  $('[data-prev]').addEventListener('click', () => next(-1));
-  $('[data-next]').addEventListener('click', () => next(1));
+  prevBtn.addEventListener('click', () => next(-1));
+  nextBtn.addEventListener('click', () => next(1));
 
   document.addEventListener('keydown', (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
