@@ -275,6 +275,7 @@
       case 'm': setSound(!soundOn); break;
       case 's': shuffleBtn.click(); break;
       case ' ': if (active >= 0) { e.preventDefault(); onShieldTap(active); } break;
+      case 'Escape': if (!document.fullscreenElement) location.href = gridLink.href; break;
     }
   });
 
