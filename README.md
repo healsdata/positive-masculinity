@@ -29,4 +29,4 @@ To test on a phone, run `hugo server --bind 0.0.0.0 --baseURL http://<your-LAN-I
 - `content/shorts/<videoId>.md`: one file per short (title, date, youtube_id, channel, channel_url, tags, note)
 - `layouts/index.html`, `layouts/_default/term.html`: grids. `layouts/shorts/single.html`: the feed page
 - `layouts/index.json`: `/index.json`, the data the feed loads
-- `assets/js/feed.js`: scroll-snap feed with one lazy YouTube player and shuffle/sound/keyboard (↑↓ / j k, m, s, space, Esc → grid)
+- `assets/js/feed.js`: scroll-snap feed with one lazy YouTube player and shuffle/sound/keyboard (↑↓ / j k, m, s, space, Esc → back to browse)
