@@ -77,7 +77,9 @@ main { max-width: 1200px; margin: 0 auto; padding: 0 16px 3rem; }
   font-weight: 600; text-decoration: none; line-height: 1.3;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.card-channel { color: var(--muted); font-size: .85rem; margin-top: .15rem; }
+.card-channel { display: block; color: var(--muted); font-size: .85rem; margin-top: .15rem; }
+a.card-channel { text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 2px; }
+a.card-channel:hover { color: var(--text); text-decoration-color: currentColor; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: .4rem; }
 .chip {
@@ -161,8 +163,9 @@ body.sound-on .hint { opacity: 0 !important; }
 @media (min-aspect-ratio: 3/4) { .info { width: calc(100dvh * 9 / 16); max-width: 100vw; } }
 .info a { pointer-events: auto; }
 .info .title { margin: 0 0 .2rem; font-size: 1.05rem; line-height: 1.3; font-weight: 650; }
-.info .channel { font-size: .88rem; opacity: .85; text-decoration: none; }
-.info a.channel:hover { text-decoration: underline; }
+.info .channel { display: inline-block; font-size: .88rem; opacity: .85; }
+.info a.channel { text-decoration: underline; text-decoration-color: rgba(255,255,255,.4); text-underline-offset: 2px; }
+.info a.channel:hover { opacity: 1; text-decoration-color: currentColor; }
 .info .note { margin: .35rem 0 0; font-size: .9rem; opacity: .9; }
 .info .chips { margin-top: .5rem; }
 .feed-page .chip { background: rgba(255,255,255,.16); color: #fff; }

@@ -13,7 +13,13 @@
     </a>
     <div class="card-body">
       <a class="card-title" href="{{ $href }}">{{ .Title }}</a>
-      {{- with .Params.channel }}<div class="card-channel">{{ . }}</div>{{ end }}
+      {{- $channel := .Params.channel }}
+      {{- $channelURL := .Params.channel_url }}
+      {{- if and $channel $channelURL }}
+      <a class="card-channel" href="{{ $channelURL }}" target="_blank" rel="noopener">{{ $channel }}</a>
+      {{- else if $channel }}
+      <div class="card-channel">{{ $channel }}</div>
+      {{- end }}
       {{- with .GetTerms "tags" }}
       <div class="chips">
         {{- range . }}<a class="chip" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}
