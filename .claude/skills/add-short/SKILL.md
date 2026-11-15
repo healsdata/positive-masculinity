@@ -37,6 +37,11 @@ The JSON body is printed first and the status code is on the last line. Don't sa
 
 Clean up the title: trim whitespace and strip trailing hashtag runs like `#shorts #motivation`. Keep the creator's wording otherwise.
 
+**Orientation check:** the oEmbed `width` and `height` give the video's shape. Vertical Shorts come back taller than wide (e.g. `width: 113, height: 200`).
+- If `width > height`, the video is landscape (a regular clip, not a Short). It plays letterboxed as a small strip in the 9:16 feed, and its grid thumbnail is a crop of the middle.
+- Tell the user before writing any file, and ask (AskUserQuestion) whether to add it anyway or skip it. If they skip, stop without creating a file.
+- Ask this in the same AskUserQuestion as step 5's tags/note, so it's still only one round of questions. Only write the file if they choose to add it.
+
 ## 4. Choose tags
 - Collect existing tags: grep the `tags:` lines in `content/shorts/*.md`.
 - If the user passed tags, use them. Otherwise propose 1–3 from the title and the existing tag list. **Prefer existing tags**; only invent a new one when nothing fits.
