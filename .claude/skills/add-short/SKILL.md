@@ -18,6 +18,8 @@ Extract the 11-character ID (`[A-Za-z0-9_-]{11}`) from any of:
 - `https://www.youtube.com/embed/<id>`
 - a bare 11-char ID
 
+Ignore any query string or fragment on any of these forms, e.g. the `?si=…` share-tracking param, `&t=`, `&feature=` or `&pp=` (except `v=` on `watch` URLs). Only the ID is used from here on. Never store, echo into files or commit the original URL.
+
 If nothing matches, stop and say the URL wasn't recognized. IDs are case-sensitive, so never change their case.
 
 ## 2. Duplicate check
